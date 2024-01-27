@@ -36,7 +36,7 @@ async function start() {
   if (existsSync(picPathRoot)) rmSync(picPathRoot, { force: true, recursive: true });
   mkdirSync(picPathRoot)
 
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch();
   // const browser = await puppeteer.launch({ headless: false, devtools: true });
   const page = await browser.newPage();
   await page.setViewport({ width: 700, height: 700 });
