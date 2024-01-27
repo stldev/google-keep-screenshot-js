@@ -1,0 +1,4 @@
+export const emailTo1 = "EMAIL_TO";
+export const emailTo2 = "EMAIL_TO";
+export const emailUser = "EMAIL_SENDER_ADDRESS";
+export const emailPass = "PASSWORD";

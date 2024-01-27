@@ -1,0 +1,16 @@
+[
+  {
+    "name": "SOME_NAME",
+    "value": "SOME_VALUE",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1737690102.329092,
+    "size": 90,
+    "httpOnly": true,
+    "secure": true,
+    "session": false,
+    "sameParty": false,
+    "sourceScheme": "Secure",
+    "sourcePort": 443
+  }
+]
