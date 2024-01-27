@@ -39,18 +39,23 @@ async function start() {
   const browser = await puppeteer.launch();
   // const browser = await puppeteer.launch({ headless: false, devtools: true });
   const page = await browser.newPage();
-  await page.setViewport({ width: 700, height: 700 });
+  await page.setViewport({ width: 700, height: 999 });
 
   const cookiesString = await readFileSync(cookiesPath);
   const cookies = JSON.parse(cookiesString);
   await page.setCookie(...cookies);
 
-  await page.goto(googleKeepUrl);
+  await page.evaluateOnNewDocument(() => {
+    localStorage.clear();
+    localStorage.setItem('keep_db::left_nav_menu_open_state', 'false');
+  });
+
+  await page.goto(googleKeepUrl, { waitUntil: 'domcontentloaded' });
 
   // await getNewCookiesToSave(); // Only need this if creds go stale
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  await page.click('[aria-label="Main menu"]')
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await page.click('[aria-label="Main menu"]') // Do not need click because of 'keep_db::left_nav_menu_open_state'
   await new Promise((resolve) => setTimeout(resolve, 4000));
 
   const fileName = new Date().toISOString().split('.')[0].replaceAll(':', '_');
@@ -59,7 +64,8 @@ async function start() {
   await page.screenshot({
     path,
     type: "png",
-    clip: { x: 0, y: 0, width: 700, height: 900 }
+    captureBeyondViewport: false,
+    clip: { x: 100, y: 210, width: 575, height: 600 }
   });
   await browser.close();
 
